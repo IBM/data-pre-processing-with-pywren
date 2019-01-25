@@ -2,15 +2,19 @@
 
 # Speed up data pre-processing with PyWren in Deep Learning
 
-In this Code Pattern, we will guide the user through an end-to-end workflow that covers data pre-processing through training AI models.
+Let’s say you write a function in Python to process and analyze some data. You successfully test the function using a small amount of data and now you want to run the function as a serverless action at massive scale, with parallelism, against terabytes of data.
+
+What options do you have? Obviously, you don’t want to learn cloud IT tricks and setup VMs, for example. Nor do you necessarily want to become a serverless computing expert in scaling data inputs, processing outputs, and monitoring concurrent executions.
+
+PyWren provides such a solution - it allows you to run your code against a large data set, get the results, and consider the value of insights gained. It greatly reduces the processing time by parallelization of the jobs in a simple manner with the help of IBM Cloud Functions.
+
+In this Code Pattern, we will guide the user through an end-to-end workflow that covers data pre-processing with PyWren, then using the data to train AI models.
 
 ## What is PyWren
 
 [PyWren](http://pywren.io/) is an open source project that executes user’s Python code and its dependencies as serverless actions on a serverless platform.  Without requiring knowledge of how serverless actions are invoked and run, PyWren executes them at massively scale and then monitors the results.
 
-Data pre-processing can be tedious and time-consuming for deep learning, especially when data are stored as hundreds of thousands of files. PyWren can greatly reduce the processing time by parallelization of the jobs in a simple manner with the help of IBM Cloud Functions. It is a great supplement to our current Deep Learning workflow with Watson Studio and Watson Machine Learning.
-
-Click [here](https://www.ibm.com/blogs/bluemix/2018/04/process-large-data-sets-massive-scale-pywren-ibm-cloud-functions/) for an overview of how PyWren can be optimized for IBM Cloud functions.
+PyWren includes a client that runs locally and a runtime that deploys in the cloud as a serverless action. PyWren uses object storage to pass information between client and server sides. On the client side, PyWren takes the Python code and relevant data, serializes them, and puts them into object storage. The client invokes the stored actions to run in parallel and then waits for the results. On the server side, for each function, PyWren takes the code and processes the relevant data from object storage, storing the results.
 
 When you have completed this code pattern, you will understand how to:
 
@@ -23,11 +27,11 @@ When you have completed this code pattern, you will understand how to:
 
 ## Flow
 
-1. Step 1.
-2. Step 2.
-3. Step 3.
-4. Step 4.
-5. Step 5.
+1. PyWren client stores code and data to object storage
+1. PyWren client invokes stored actions to run in parellel using IBM Cloud Functions
+1. PyWren server-side runtime processes the data from object storaage
+1. PyWren server-side runtime monitors the execution of the functions and returns results back to object storage
+1. PwWren client retrieves results from object storage
 
 # Watch the Video
 
