@@ -6,22 +6,35 @@ Let’s say you write a function in Python to process and analyze some data. You
 
 What options do you have? Obviously, you don’t want to learn cloud IT tricks and setup VMs, for example. Nor do you necessarily want to become a serverless computing expert in scaling data inputs, processing outputs, and monitoring concurrent executions.
 
-PyWren provides such a solution - it allows you to run your code against a large data set, get the results, and consider the value of insights gained. It greatly reduces the processing time by parallelization of the jobs in a simple manner with the help of IBM Cloud Functions.
+PyWren provides such a solution - it allows you to run your code against a large data set, get the results, and consider the value of insights gained. It greatly reduces the processing time by parallelization of the jobs in a simple manner.
 
-In this Code Pattern, we will guide the user through an end-to-end workflow that covers data pre-processing with PyWren, then using the data to train AI models.
+In this code pattern, we will guide the user through an end-to-end workflow that covers data pre-processing with PyWren, then using the data to train AI models.
 
 ## What is PyWren
 
-[PyWren](http://pywren.io/) is an open source project that executes user’s Python code and its dependencies as serverless actions on a serverless platform.  Without requiring knowledge of how serverless actions are invoked and run, PyWren executes them at massively scale and then monitors the results.
+[PyWren](http://pywren.io/) is an open source project that executes user’s Python code and its dependencies as serverless actions on a serverless platform.  Without requiring knowledge of how serverless actions are invoked and run, PyWren executes them at massive scale and then monitors the results.
 
 PyWren includes a client that runs locally and a runtime that deploys in the cloud as a serverless action. PyWren uses object storage to pass information between client and server sides. On the client side, PyWren takes the Python code and relevant data, serializes them, and puts them into object storage. The client invokes the stored actions to run in parallel and then waits for the results. On the server side, for each function, PyWren takes the code and processes the relevant data from object storage, storing the results.
 
-When you have completed this code pattern, you will understand how to:
+## PyWren and IBM Cloud
 
-* [goal 1]
-* [goal 2]
-* [goal 3]
-* [goal 4]
+[PyWren-IBM-Cloud](https://github.com/pywren/pywren-ibm-cloud) is a extension of PyWren that has been adapted for IBM Cloud Functions and IBM Cloud Oject Storage.
+
+## Facial recognition
+
+In this code pattern we will use a Jupyter Notebook running in Watson Studio to demonstrate how serverless computing can provide a great benefit for AI data preprocessing. We demonstrate Face Recognition deep learning over Watson Machine Learning service, while letting PyWren with IBM Cloud Functions do the data preparation phase. As we will show this makes an entire process up to 50 times faster compared to running the same code without leveraging serverless computing.
+
+Our notebook is based on the blog [Building a Facial Recognition Pipeline with Deep Learning in Tensorflow](https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8), written by Cole Murray.
+
+The notebook introduces commands for getting data, training_definition persistance to Watson Machine Learning repository, model training, deployment and scoring.
+
+When you have completed this code pattern, you will learn:
+
+* How to work with Watson Machine Learning experiments to train Deep Learning models (Tensorflow)
+* How to save trained models in the Watson Machine Learning repository
+* How to deploy a trained model online and score
+* How IBM Cloud Functions can be used for data preparation phase
+* The value of PyWren for IBM Cloud
 
 ![architecture](doc/source/images/architecture.png)
 
@@ -43,8 +56,10 @@ COMING!!!
 1. [Create a new project](#2-create-a-new-project)
 1. [Create the notebook](#3-create-the-notebook)
 1. [Create a Watson Machine Learning Service instance](#4-create-a-watson-machine-learning-service-instance)
-1. [Run the notebook](#6-run-the-notebook)
-1. [See the results](#7-see-the-results)
+1. [Create an IBM Cloud Object Storage Service instance](#5-create-an-ibm-cloud-object-storage-service-instance)
+1. [Create an IBM Cloud Functions account](#6-create-an-ibm-cloud-functions-account)
+1. [Run the notebook](#7-run-the-notebook)
+1. [See the results](#8-see-the-results)
 
 ### 1. Sign up for Watson Studio
 
@@ -86,7 +101,13 @@ Use the `From URL` tab to create our notebook.
 
 * Press the `Create Notebook` button.
 
-### 4. Run the notebook
+### 4. Create a Watson Machine Learning Service instance
+
+### 5. Create an IBM Cloud Object Storage Service instance
+
+### 6. Create an IBM Cloud Functions account
+
+### 7. Run the notebook
 
 To view your notebooks, select `Notebooks` in the project `Assets` list. To run a notebook, simply click on the `edit` icon listed in the row associated with the notebook in the `Notebooks` list.
 
