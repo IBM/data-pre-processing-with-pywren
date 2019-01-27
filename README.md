@@ -41,7 +41,7 @@ When you have completed this code pattern, you will learn:
 ## Flow
 
 1. PyWren client stores code and data to object storage
-1. PyWren client invokes stored actions to run in parellel using IBM Cloud Functions
+1. PyWren client invokes stored actions to run in parallel using IBM Cloud Functions
 1. PyWren server-side runtime processes the data from object storaage
 1. PyWren server-side runtime monitors the execution of the functions and returns results back to object storage
 1. PwWren client retrieves results from object storage
@@ -109,7 +109,7 @@ Use the `From URL` tab to create our notebook.
 
 ### 7. Run the notebook
 
-To view your notebooks, select `Notebooks` in the project `Assets` list. To run a notebook, simply click on the `edit` icon listed in the row associated with the notebook in the `Notebooks` list.
+To view your notebooks, select `Notebooks` in the project `Assets` list. To run a notebook, simply click on the `Edit` icon listed in the row associated with the notebook in the `Notebooks` list.
 
 ![](doc/source/images/studio-notebook-list.png)
 
