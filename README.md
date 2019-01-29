@@ -65,56 +65,72 @@ COMING!!!
 
 # Steps
 
-1. [Sign up for Watson Studio](#1-sign-up-for-watson-studio)
-1. [Create a new project](#2-create-a-new-project)
-1. [Create the notebook](#3-create-the-notebook)
-1. [Create a Watson Machine Learning Service instance](#4-create-a-watson-machine-learning-service-instance)
-1. [Create HMAC credentials for the Cloud Object Storage instance](#5-create-hmac-credentials-for-the-cloud-object-storage-instance)
-1. [Create IBM Cloud Object Storage Bucket](#6-create-ibm-cloud-object-storage-bucket)
-1. [Create an IBM Cloud Functions service](#7-create-an-ibm-cloud-functions-service)
-1. [Run the notebook](#8-run-the-notebook)
+1. [Setup a Cloud Object Storage instance](#1-setup-a-cloud-object-storage-instance)
+1. [Create a Watson Machine Learning Service instance](#2-create-a-watson-machine-learning-service-instance)
+1. [Create an IBM Cloud Functions service](#3-create-an-ibm-cloud-functions-service)
+1. [Create a Watson Studio project](#4-create-a-watson-studio-project)
+1. [Create a custom runtime environment](#5-create-a-custom-runtime-environment)
+1. [Create the notebook](#6-create-the-notebook)
+1. [Run the notebook](#7-run-the-notebook)
 
-## 1. Sign up for Watson Studio
+> Note: This code pattern assumes you have an account for both [IBM Cloud](https://cloud.ibm.com/) and [Watson Studio](https://dataplatform.cloud.ibm.com/). To complete this following steps, you will need to create multiple IBM Cloud services that will be utilized by the Jupyter notebook running in Watson Studio.
 
-Sign up for IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/). By creating a project in Watson Studio a free tier Object Storage service will be created in your IBM Cloud account. Take note of your service names as you will need to select them in the following steps.
+## 1. Setup a Cloud Object Storage instance
 
-Note: When creating your Object Storage service, select the `Free storage` type in order to avoid having to pay an upgrade fee.
+Set up a Cloud Object Storage (COS) instance in IBM Cloud. The COS instance will provide storage for the Watson Studio project, as well as for the running notebook.
 
-## 2. Create a new project
+If you do not already have a running COS instance, follow these steps to create one.
 
-From the Watson Studio home page, select `New Project`, then select the `Create Project` button located in the `Data Science` tile.
+* From the IBM Cloud Catalog, under the Storage category, select [Object Storage](https://cloud.ibm.com/catalog/services/cloud-object-storage).
 
-![project-choices](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/project_choices.png)
+![ml-tile](doc/source/images/watson-obj-store-tile.png)
 
-* To create a project in Watson Studio, give the project a name and either create a new Cloud Object Storage service or select an existing one from your IBM Cloud account.
+* Enter a service name, select the `Lite` plan, then press `Create`.
 
-![new-project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new_project.png)
+![ml-create](doc/source/images/watson-obj-store-create.png)
 
-* Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (such as notebooks) and any IBM Cloud services.
+Once you have your COS instance created, you will need to perform these additional steps:
 
-![project-assets](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/data-assets.png)
+* Create HMAC credentials
+* Create a storage bucket
 
-## 3. Create the notebook
+### 1a. Create HMAC credentials for the Cloud Object Storage instance
 
-From the project dashboard view, select the `Add to project` drop-down menu and click on `Notebook`.
+Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials for your COS instance.
 
-![add-notebook](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/StudioAddToProjectNotebook.png)
+* From your COS instance panel, click the `Service credentials` tab.
 
-Use the `From URL` tab to create our notebook.
+![cos-creds](doc/source/images/watson-obj-store-creds.png)
 
-![create-notebook](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/notebook_with_url_py35.png)
+* Click on `New Credential` to initiate creating a new set of credentials. Enter a name, then enter `{"HMAC":true}` in the `Add Inline Configuration Parameters` field. Press `Add` to create the credentials.
 
-* Give your notebook a name and select your desired runtime. In this case, select the `Default Python 3.5 Free` option.
+![cos-add-creds](doc/source/images/watson-obj-store-add-creds.png)
 
-* For URL, enter the following URL for the notebook stored in our GitHub repository:
+* Once the credentials are created, you should see a set of `cos_hmac_keys` values.
 
-  ```bash
-  https://raw.githubusercontent.com/IBM/data-pre-processing-with-pywren/master/notebooks/facial-recognition.ipynb
-  ```
+![cos-new-creds](doc/source/images/watson-obj-store-new-creds.png)
 
-* Press the `Create Notebook` button.
+### 1b. Create an IBM Cloud Object Storage bucket
 
-## 4. Create a Watson Machine Learning Service instance
+Create a COS bucket to store input data used by the notebook.
+
+* From your COS instance panel, click the `Buckets` tab.
+
+You can choose to use an existing bucket, or create a new one.
+
+> Note: add warning about buckets here!!!!
+
+Once you have determined which bucket to use, you will also need to determine the endpoint for the region associated with the bucket.
+
+To determine the region endpoint, note the `Resiliency` and `Location` of the selected bucket. Then click on the `Endpoint` tab. From there, select the appropriate values from the `Select resiliency` and `Select location` drop-down list. You will then be presented a list of the matching endpoint URLs.
+
+Once completed, take note of the following values as you will need to enter them when creating and executing the notebook in Watson Studio:
+
+* COS instance name
+* HMAC credentials
+* COS bucket name and endpoint URL
+
+## 2. Create a Watson Machine Learning Service instance
 
 If you do not already have a running instance of the Watson Machine Learning (WML) service, follow these steps to create one.
 
@@ -142,51 +158,9 @@ If you do not already have a running instance of the Watson Machine Learning (WM
 
 ![ml-creds](doc/source/images/watson-ml-creds.png)
 
-* In the notebook available with this pattern, there is a cell which requires you to enter your WML credentials. Copy and paste these credentials into that notebook cell.
+Once completed, take note of the WML credentials, as you will need to enter them when executing the notebook in Watson Studio:
 
-![notebook-add-ml-creds](doc/source/images/notebook-add-ml-creds.png)
-
-## 5. Create HMAC credentials for the Cloud Object Storage instance
-
-To run the notebook available with this pattern, you must create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials for your Cloud Object Storage instance.
-
-* From the IBM Cloud dashboard, click on the Cloud Object Storage instance that you assigned to your Watson Studio project. Then click the `Service credentials` tab.
-
-![cos-creds](doc/source/images/watson-obj-store-creds.png)
-
-* Click on `New Credential` to initiate creating a new set of credentials. Enter a name, then enter `{"HMAC":true}` in the `Add Inline Configuration Parameters` field. Press `Add` to create the credentials.
-
-![cos-add-creds](doc/source/images/watson-obj-store-add-creds.png)
-
-* Once the credentials are created, you should see a set of `cos_hmac_keys` values.
-
-![cos-new-creds](doc/source/images/watson-obj-store-new-creds.png)
-
-* In the notebook available with this pattern, there is a cell which requires you to enter your Cloud Object Storage credentials. Copy and paste these credentials into that notebook cell.
-
-![notebook-add-cos-creds](doc/source/images/notebook-add-wos-creds.png)
-
-## 6. Create IBM Cloud Object Storage Bucket
-
-To run the notebook available with this pattern, you will need to create a Cloud Object Storage (COS) bucket to store input data.
-
-* From the IBM Cloud dashboard, click on the Cloud Object Storage instance that you assigned to your Watson Studio project. Then click the `Buckets` tab.
-
-You can choose to use an existing bucket, or create a new one.
-
-> Note: add warning about buckets here!!!!
-
-Once you have determined which bucket to use, you will also need to determine the endpoint for the region associated with the bucket.
-
-To determine the region endpoint, note the `location` of the selected bucket. Then click on the `Endpoint` tab. From there, select the matching value from the `Location` drop-down list. You will then be presented a list of the endpoint URLs.
-
-In the included code pattern notebook, there are cells which require you to enter your bucket name and endpoint URL. Copy and paste these values into the notebook cells.
-
-![](doc/source/images/notebook-add-bucket-data.png)
-
-## 7. Create an IBM Cloud Functions service
-
-To run the notebook available with this pattern, you will need to create an IBM Cloud Functions service. Follow these steps to create it.
+## 3. Create an IBM Cloud Functions service
 
 * From the IBM Cloud Catalog, under the AI category, select [Functions](https://cloud.ibm.com/openwhisk/learn/concepts).
 
@@ -200,13 +174,85 @@ Navigate to the `API Key` tab to determine the values you will need to enter int
 
 ![notebook-add-functions-creds](doc/source/images/notebook-add-functions-data.png)
 
-> Note: the `endpoint` value should combine `https://` with the `HOST` name listed in the `API Key` data. For example, `https://openwhisk.ng.bluemix.net`
+Once completed, take note of the namespace, host, and key values, as you will need to enter them when executing the notebook in Watson Studio:
 
-## 8. Run the notebook
+## 4. Create a Watson Studio project
+
+From the Watson Studio home page, select `New Project`, then select the `Create Project` button located in the `Data Science` tile.
+
+![project-choices](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/project_choices.png)
+
+* On the creation panel, enter a unique project name. For `Select storage service`, select the COS instance that your created in ***Step #1***.
+
+![new-project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new_project.png)
+
+* Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (such as notebooks) and any IBM Cloud services.
+
+![project-assets](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/data-assets.png)
+
+## 5. Create a custom runtime environment
+
+From the project dashboard view, select the `Environments` tab, and click on `New environment definition`.
+
+![env-create](doc/source/images/custom-env-create.png)
+
+Provide a unique name for your enviroment, keep the default configuration options, then press `Create`.
+
+> Note: Ensure that the `Software Version` is set to `Python 3.5`
+
+From the environment summary panel, locate the `Customization` area on the bottom right-side of the panel. Press `Create` to enter customization options.
+
+Add ***- dlib***  to the dependency list, in the format shown below:
+
+![env-custom](doc/source/images/custom-env-add-dlib.png)
+
+Press `Apply` to save your changes.
+
+## 6. Create the notebook
+
+From the project dashboard view, select the `Add to project` drop-down menu and click on `Notebook`.
+
+![add-notebook](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/StudioAddToProjectNotebook.png)
+
+Use the `From URL` tab to create our notebook.
+
+![create-notebook](doc/source/images/notebook-create.png)
+
+* Give your notebook a name and select your desired runtime. In this case, select the runtime environment that you created in the previous step.
+
+* For URL, enter the following URL for the notebook stored in our GitHub repository:
+
+  ```bash
+  https://raw.githubusercontent.com/IBM/data-pre-processing-with-pywren/master/notebooks/facial-recognition.ipynb
+  ```
+
+* Press the `Create Notebook` button. This will initiate the loading and running of the notebook within Watson Studio.
+
+## 7. Run the notebook
 
 To view your notebooks, select `Notebooks` in the project `Assets` list. To run a notebook, simply click on the `Edit` icon listed in the row associated with the notebook in the `Notebooks` list.
 
 ![notebook-list](doc/source/images/studio-notebook-list.png)
+
+Once the notebook is loaded and running, you will see several cells where additional data is required. The data will come from the setup of the IBM Cloud services that you performed in pervious steps.
+
+* In this cell, add your Cloud Object Storage instance credentials:
+
+![](doc/source/images/notebook-add-cos-creds.png)
+
+* In this cell, add your Cloud Object Storage bucket name and endpoint URL:
+
+![](doc/source/images/notebook-add-bucket-data.png)
+
+* In this cell, add your Watson Machine Learning credentials:
+
+![](doc/source/images/notebook-add-ml-creds.png)
+
+* In this cell, add the data from your IBM Cloud Functions service:
+
+![](doc/source/images/notebook-add-functions-data.png)
+
+Note: the endpoint value should combine `https://` with the `HOST` name listed in the `API Key` data. For example, `https://openwhisk.ng.bluemix.net`.
 
 Some background on executing notebooks:
 
