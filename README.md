@@ -16,7 +16,7 @@ PyWren includes a client that runs locally and a runtime that deploys in the clo
 
 ## PyWren and IBM Cloud
 
-[PyWren-IBM-Cloud](https://github.com/pywren/pywren-ibm-cloud) is a extension of PyWren that has been adapted for IBM Cloud Functions and IBM Cloud Oject Storage.
+[PyWren-IBM-Cloud](https://github.com/pywren/pywren-ibm-cloud) is a extension of PyWren that has been adapted for IBM Cloud Functions and IBM Cloud Object Storage.
 
 ## Facial recognition
 
@@ -66,6 +66,7 @@ When you have completed this code pattern, you will learn:
 1. [Create a custom runtime environment](#5-create-a-custom-runtime-environment)
 1. [Create the notebook](#6-create-the-notebook)
 1. [Run the notebook](#7-run-the-notebook)
+1. [See the results](#8-see-the-results)
 
 > Note: This code pattern assumes you have an account for both [IBM Cloud](https://cloud.ibm.com/) and [Watson Studio](https://dataplatform.cloud.ibm.com/). To complete the following steps, you will need to create multiple IBM Cloud services that will then be utilized by a Jupyter notebook, running in Watson Studio.
 
@@ -272,7 +273,21 @@ format is `In [x]:`. Depending on the state of the notebook, the `x` can be:
     panel. Here you can schedule your notebook to be executed once at some future
     time, or repeatedly at your specified interval.
 
+## 8. See the results
+
+During the execution of the notebook, you will see output such as:
+
+* Results from monitoring the training run:
+
+![notebook-functions](doc/source/images/results-training-run.png)
+
+* Results from using our model to classify images:
+
+![notebook-functions](doc/source/images/results-classification.png)
+
 # Sample output
+
+Click [here](examples/facial-recognition.ipynb) to view a full copy of the notebook, including output.
 
 # Links
 
