@@ -1,5 +1,3 @@
-!! WORK IN PROGRESS !!
-
 # Speed up data pre-processing with PyWren in Deep Learning
 
 Let’s say you write a function in Python to process and analyze some data. You successfully test the function using a small amount of data and now you want to run the function as a serverless action at massive scale, with parallelism, against terabytes of data.
@@ -59,10 +57,6 @@ When you have completed this code pattern, you will learn:
 * [Python](https://www.python.org/): Python is a programming language that lets you work more quickly and integrate your systems more effectively.
 * [PyWren](http://pywren.io/): PyWren is an open source project that executes user’s Python code and its dependencies as serverless actions on a serverless platform.
 
-# Watch the Video
-
-COMING!!!
-
 # Steps
 
 1. [Setup a Cloud Object Storage instance](#1-setup-a-cloud-object-storage-instance)
@@ -73,7 +67,7 @@ COMING!!!
 1. [Create the notebook](#6-create-the-notebook)
 1. [Run the notebook](#7-run-the-notebook)
 
-> Note: This code pattern assumes you have an account for both [IBM Cloud](https://cloud.ibm.com/) and [Watson Studio](https://dataplatform.cloud.ibm.com/). To complete this following steps, you will need to create multiple IBM Cloud services that will be utilized by the Jupyter notebook running in Watson Studio.
+> Note: This code pattern assumes you have an account for both [IBM Cloud](https://cloud.ibm.com/) and [Watson Studio](https://dataplatform.cloud.ibm.com/). To complete the following steps, you will need to create multiple IBM Cloud services that will then be utilized by a Jupyter notebook, running in Watson Studio.
 
 ## 1. Setup a Cloud Object Storage instance
 
@@ -96,7 +90,7 @@ Once you have your COS instance created, you will need to perform these addition
 
 ### 1a. Create HMAC credentials for the Cloud Object Storage instance
 
-Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials for your COS instance.
+Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials for your Cloud Object Storage (COS) instance.
 
 * From your COS instance panel, click the `Service credentials` tab.
 
@@ -112,23 +106,21 @@ Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials fo
 
 ### 1b. Create an IBM Cloud Object Storage bucket
 
-Create a COS bucket to store input data used by the notebook.
+Create a Cloud Object Storage (COS) bucket to store input data used by the notebook.
 
 * From your COS instance panel, click the `Buckets` tab.
 
 You can choose to use an existing bucket, or create a new one.
 
-> Note: add warning about buckets here!!!!
-
 Once you have determined which bucket to use, you will also need to determine the endpoint for the region associated with the bucket.
 
 To determine the region endpoint, note the `Resiliency` and `Location` of the selected bucket. Then click on the `Endpoint` tab. From there, select the appropriate values from the `Select resiliency` and `Select location` drop-down list. You will then be presented a list of the matching endpoint URLs.
 
-Once completed, take note of the following values as you will need to enter them when creating and executing the notebook in Watson Studio:
+Once completed, take note of the following values assoicated with your Cloud Object Storage instance. You will need to enter them when creating and executing the notebook in Watson Studio:
 
-* COS instance name
+* instance name
 * HMAC credentials
-* COS bucket name and endpoint URL
+* bucket name and endpoint URL
 
 ## 2. Create a Watson Machine Learning Service instance
 
@@ -182,7 +174,7 @@ From the Watson Studio home page, select `New Project`, then select the `Create 
 
 ![project-choices](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/project_choices.png)
 
-* On the creation panel, enter a unique project name. For `Select storage service`, select the COS instance that your created in ***Step #1***.
+* On the creation panel, enter a unique project name. For `Select storage service`, select the Cloud Object Storage instance that your created in ***Step #1***.
 
 ![new-project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new_project.png)
 
@@ -202,9 +194,9 @@ Provide a unique name for your enviroment, keep the default configuration option
 
 From the environment summary panel, locate the `Customization` area on the bottom right-side of the panel. Press `Create` to enter customization options.
 
-Add ***- dlib***  to the dependency list, in the format shown below:
+Add ***dlib*** and ***conda-forge*** to the customization list in the format shown below:
 
-![env-custom](doc/source/images/custom-env-add-dlib.png)
+![env-custom](doc/source/images/custom-env-add.png)
 
 Press `Apply` to save your changes.
 
@@ -238,19 +230,19 @@ Once the notebook is loaded and running, you will see several cells where additi
 
 * In this cell, add your Cloud Object Storage instance credentials:
 
-![](doc/source/images/notebook-add-cos-creds.png)
+![notebook-cos](doc/source/images/notebook-add-cos-creds.png)
 
 * In this cell, add your Cloud Object Storage bucket name and endpoint URL:
 
-![](doc/source/images/notebook-add-bucket-data.png)
+![notebook-bucket](doc/source/images/notebook-add-bucket-data.png)
 
 * In this cell, add your Watson Machine Learning credentials:
 
-![](doc/source/images/notebook-add-ml-creds.png)
+![notebook-ml](doc/source/images/notebook-add-ml-creds.png)
 
 * In this cell, add the data from your IBM Cloud Functions service:
 
-![](doc/source/images/notebook-add-functions-data.png)
+![notebook-functions](doc/source/images/notebook-add-functions-data.png)
 
 Note: the endpoint value should combine `https://` with the `HOST` name listed in the `API Key` data. For example, `https://openwhisk.ng.bluemix.net`.
 
