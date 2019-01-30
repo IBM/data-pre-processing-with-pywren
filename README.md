@@ -38,11 +38,11 @@ When you have completed this code pattern, you will learn:
 
 ## Flow
 
-1. PyWren client stores code and data to object storage
-1. PyWren client invokes stored actions to run in parallel using IBM Cloud Functions
-1. PyWren server-side runtime processes the data from object storaage
-1. PyWren server-side runtime monitors the execution of the functions and returns results back to object storage
-1. PwWren client retrieves results from object storage
+1. Log into IBM Watson Studio
+2. Run the Jupyter notebook in Watson Studio
+3. Load image data into a Cloud Object Storage bucket
+4. Pre-process the images using PyWren and IBM Cloud Functions
+5. Use Watson Machine Learning with TensorFlow and scikit-learn to create and train the model
 
 ## Included components
 
@@ -71,9 +71,9 @@ When you have completed this code pattern, you will learn:
 
 ## 1. Setup a Cloud Object Storage instance
 
-Set up a Cloud Object Storage (COS) instance in IBM Cloud. The COS instance will provide storage for the Watson Studio project, as well as for the running notebook.
+Set up a Cloud Object Storage instance in IBM Cloud. The instance will provide storage for the Watson Studio project, as well as for the running notebook.
 
-If you do not already have a running COS instance, follow these steps to create one.
+If you do not already have a running instance, follow these steps to create one.
 
 * From the IBM Cloud Catalog, under the Storage category, select [Object Storage](https://cloud.ibm.com/catalog/services/cloud-object-storage).
 
@@ -83,16 +83,16 @@ If you do not already have a running COS instance, follow these steps to create 
 
 ![ml-create](doc/source/images/watson-obj-store-create.png)
 
-Once you have your COS instance created, you will need to perform these additional steps:
+Once you have your Cloud Object Storage instance created, you will need to perform these additional steps:
 
 * Create HMAC credentials
 * Create a storage bucket
 
 ### 1a. Create HMAC credentials for the Cloud Object Storage instance
 
-Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials for your Cloud Object Storage (COS) instance.
+Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials for your Cloud Object Storage instance.
 
-* From your COS instance panel, click the `Service credentials` tab.
+* From your Cloud Object Storage instance panel, click the `Service credentials` tab.
 
 ![cos-creds](doc/source/images/watson-obj-store-creds.png)
 
@@ -106,9 +106,9 @@ Create a `Keyed-Hashing for Message Authentication` (HMAC) set of credentials fo
 
 ### 1b. Create an IBM Cloud Object Storage bucket
 
-Create a Cloud Object Storage (COS) bucket to store input data used by the notebook.
+Create a Cloud Object Storage bucket to store input data used by the notebook.
 
-* From your COS instance panel, click the `Buckets` tab.
+* From your Cloud Object Storage instance panel, click the `Buckets` tab.
 
 You can choose to use an existing bucket, or create a new one.
 
@@ -124,7 +124,7 @@ Once completed, take note of the following values assoicated with your Cloud Obj
 
 ## 2. Create a Watson Machine Learning Service instance
 
-If you do not already have a running instance of the Watson Machine Learning (WML) service, follow these steps to create one.
+If you do not already have a running instance of the Watson Machine Learning service, follow these steps to create one.
 
 * From the IBM Cloud Catalog, under the AI category, select [Machine Learning](https://cloud.ibm.com/catalog/services/machine-learning).
 
@@ -150,7 +150,7 @@ If you do not already have a running instance of the Watson Machine Learning (WM
 
 ![ml-creds](doc/source/images/watson-ml-creds.png)
 
-Once completed, take note of the WML credentials, as you will need to enter them when executing the notebook in Watson Studio:
+Once completed, take note of the Watson Machine Learning credentials, as you will need to enter them when executing the notebook in Watson Studio:
 
 ## 3. Create an IBM Cloud Functions service
 
