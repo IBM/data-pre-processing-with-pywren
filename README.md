@@ -39,10 +39,10 @@ When you have completed this code pattern, you will learn:
 ## Flow
 
 1. Log into IBM Watson Studio
-2. Run the Jupyter notebook in Watson Studio
-3. Load image data into a Cloud Object Storage bucket
-4. Pre-process the images using PyWren and IBM Cloud Functions
-5. Use Watson Machine Learning with TensorFlow and scikit-learn to create and train the model
+1. Run the Jupyter notebook in Watson Studio
+1. Load image data into a Cloud Object Storage bucket
+1. Pre-process the images using PyWren and IBM Cloud Functions
+1. Use Watson Machine Learning with TensorFlow and scikit-learn to create and train the model
 
 ## Included components
 
