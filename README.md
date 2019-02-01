@@ -24,15 +24,14 @@ In this code pattern we will use a Jupyter Notebook running in Watson Studio to 
 
 Our notebook is based on the blog [Building a Facial Recognition Pipeline with Deep Learning in Tensorflow](https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8), written by Cole Murray.
 
-The notebook introduces commands for getting data, training_definition persistance to Watson Machine Learning repository, model training, deployment and scoring.
+The notebook introduces commands for getting data, training_definition persistence to Watson Machine Learning repository, model training, deployment and scoring.
 
 When you have completed this code pattern, you will learn:
 
-* How to work with Watson Machine Learning experiments to train Deep Learning models (Tensorflow)
-* How to save trained models in the Watson Machine Learning repository
-* How to deploy a trained model online and score
-* How IBM Cloud Functions can be used for data preparation phase
+* How IBM Cloud Functions can be used for the data preparation phase
 * The value of PyWren for IBM Cloud
+* How to work with Watson Machine Learning to train Deep Learning models (TensorFlow + scikit-learn)
+* How to retrieve and use models trained in Watson Machine Learning
 
 ![architecture](doc/source/images/architecture.png)
 
