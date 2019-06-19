@@ -170,17 +170,21 @@ Once completed, take note of the namespace, host, and key values, as you will ne
 
 ## 4. Create a Watson Studio project
 
-From the Watson Studio home page, select `New Project`, then select the `Create Project` button located in the `Data Science` tile.
+* Log into IBM's [Watson Studio](https://dataplatform.cloud.ibm.com). Once in, you'll land on the dashboard.
 
-![project-choices](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/project_choices.png)
+* Create a new project by clicking `+ New project` and choosing `Data Science`:
 
-* On the creation panel, enter a unique project name. For `Select storage service`, select the Cloud Object Storage instance that your created in ***Step #1***.
+   ![studio project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new-project-data-science.png)
 
-![new-project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new_project.png)
+* Enter a name for the project name and click `Create`.
+
+* For `Select storage service`, select the Cloud Object Storage instance that your created in ***Step #1***.
+
+  ![studio project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new-project-data-science-name.png)
 
 * Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (such as notebooks) and any IBM Cloud services.
 
-![project-assets](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/data-assets.png)
+  ![project-assets](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/overview-empty.png)
 
 ## 5. Create a custom runtime environment
 
@@ -204,7 +208,7 @@ Press `Apply` to save your changes.
 
 From the project dashboard view, select the `Add to project` drop-down menu and click on `Notebook`.
 
-![add-notebook](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/StudioAddToProjectNotebook.png)
+![add-notebook](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/add-assets-notebook.png)
 
 Use the `From URL` tab to create our notebook.
 
