@@ -184,7 +184,7 @@ Once completed, take note of the namespace, host, and key values, as you will ne
 
 * Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (such as notebooks) and any IBM Cloud services.
 
-  ![project-assets](https://github.com/IBM/pattern-utils/raw/master/watson-studio/overview-empty.png)
+  ![project-assets](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/overview-empty.png)
 
 ## 5. Create a custom runtime environment
 
@@ -208,7 +208,7 @@ Press `Apply` to save your changes.
 
 From the project dashboard view, select the `Add to project` drop-down menu and click on `Notebook`.
 
-![add-notebook](https://github.com/IBM/pattern-utils/raw/master/watson-studio/add-assets-notebook.png)
+![add-notebook](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/add-assets-notebook.png)
 
 Use the `From URL` tab to create our notebook.
 
